@@ -6,10 +6,10 @@ import "./form.css"
 import { useEffect } from 'react'
 function Form() {
   const [name, setname] = useState('')
-  const [numbers,setnumbers] = useState('')
+  const [numbers, setnumbers] = useState('')
   const [email, setemail] = useState('')
-  const [stateName,setstateName] = useState('')
-  const [cityName,setcityName] = useState('')
+  const [stateName, setstateName] = useState('')
+  const [cityName, setcityName] = useState('')
   const [message, setmessage] = useState('')
   const [file, setfile] = useState('');
   const [states, setstates] = useState([])
@@ -19,7 +19,7 @@ function Form() {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    console.log(name,numbers,email,stateName,cityName,message);
+    console.log(name, numbers, email, stateName, cityName, message);
 
     const serviceId = "service_1lxhoab";
     const templateId = "template_b9xwplr"
@@ -36,9 +36,10 @@ function Form() {
     //   .then(
     //     (response) => {
     //       console.log('SUCCESS!', response);
-    //       setname('');
-    //       setemail('');
-    //       setmessage('');
+    //       // setname('');
+    //       // setemail('');
+    //       // setmessage('');
+    //       window.location.reload();
     //     })
     //   .catch((error) => {
     //     console.log('FAILED...', error);
@@ -53,27 +54,28 @@ function Form() {
     }
 
     const formData = new FormData();
+    formData.append('Name', name);
+    formData.append('Number', numbers);
+    formData.append('Email', email);
+    formData.append('State', stateName);
+    formData.append('City', cityName);
     formData.append('file', file);
-    formData.append('name', name);
-    formData.append('name', name);
+    // formData.append('Message', cityName);
 
-    // try {
-    //   const response = await axios.post('http://localhost:8002/upload ', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   });
-    //   console.log('File uploaded successfully:', response.data);
-    // }
-    // catch (error) {
-    //   console.error('Error uploading file:', error);
-    // }
+    try {
+      const response = await axios.post('http://localhost:8002/upload ', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('File uploaded successfully:', response.data);
+    }
+    catch (error) {
+      console.error('Error uploading file:', error);
+    }
 
   }
 
-
-
-
   // THIS USeEFFECT IS FOR CALLING THE STATES FUNCTION---------
 
 
@@ -81,8 +83,6 @@ function Form() {
   // THIS USeEFFECT IS FOR CALLING THE STATES FUNCTION---------
   // THIS USeEFFECT IS FOR CALLING THE STATES FUNCTION---------
   // THIS USeEFFECT IS FOR CALLING THE STATES FUNCTION---------
-
-
 
 
 
@@ -110,11 +110,6 @@ function Form() {
   }
 
 
-
-
-
-
-
   // THIS function IS USED FOR CALLING ALL THE CITIES------
 
 
@@ -139,7 +134,7 @@ function Form() {
       .catch(error => console.log('error', error));
   }
 
-// THSI FUNCTION IS USED TO GET THE STATENAME-------
+  // THSI FUNCTION IS USED TO GET THE STATENAME-------
   const handleStateChange = (e) => {
     const selectedIndex = e.target.selectedIndex;
     const code = e.target.value;
@@ -153,12 +148,13 @@ function Form() {
     <>
       <div id="wrapper">
         <form action="" onSubmit={handlesubmit}>
+        <h1>Ek Form jo Bhej De Apka Data</h1>
           <input type="text" placeholder='name' value={name} onChange={(e) => { setname(e.target.value) }} />
-          <input type="number" name="" id="" placeholder='write your numbers' onChange={(e) => { setnumbers(e.target.value) }}  />
+          <input type="number" name="" id="" placeholder='write your numbers' onChange={(e) => { setnumbers(e.target.value) }} />
 
           <input type="email" placeholder='your email' value={email} onChange={(e) => setemail(e.target.value)} />
-    
-         
+
+
           <select onChange={handleStateChange} className='states'>
             <option selected disabled>select state</option>
             {
@@ -168,7 +164,7 @@ function Form() {
             }
           </select>
 
-          <select onChange={e=>{setcityName(e.target.value)}} className='cities'   >
+          <select onChange={e => { setcityName(e.target.value) }} className='cities'   >
             <option selected disabled>select city</option>
             {
               cities.map((result) => {
@@ -181,6 +177,7 @@ function Form() {
           <input className='file' type="file" onChange={(e) => { setfile(e.target.files[0]) }} />
 
           <button type='submit'> submit</button>
+
         </form>
       </div>
 
