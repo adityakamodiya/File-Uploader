@@ -6,64 +6,70 @@ import "./form.css"
 import { useEffect } from 'react'
 function Form() {
   const [name, setname] = useState('')
+  const [numbers,setnumbers] = useState('')
   const [email, setemail] = useState('')
+  const [stateName,setstateName] = useState('')
+  const [cityName,setcityName] = useState('')
   const [message, setmessage] = useState('')
   const [file, setfile] = useState('');
   const [states, setstates] = useState([])
   const [cities, setcities] = useState([])
 
-  // const handlesubmit = async (e) => {
-  //   e.preventDefault();
 
 
-  //   const serviceId = "service_1lxhoab";
-  //   const templateId = "template_b9xwplr"
-  //   const publicKey = "477DGgg4A_-dG5iJF"
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+    console.log(name,numbers,email,stateName,cityName,message);
 
-  //   const templateParams = {
-  //     from_name: name,
-  //     from_email: email,
-  //     to_name: 'aditya kamodiya',
-  //     message: message,
-  //   };
+    const serviceId = "service_1lxhoab";
+    const templateId = "template_b9xwplr"
+    const publicKey = "477DGgg4A_-dG5iJF"
 
-  //   // emailjs.send(serviceId, templateId, templateParams, publicKey)
-  //   //   .then(
-  //   //     (response) => {
-  //   //       console.log('SUCCESS!', response);
-  //   //       setname('');
-  //   //       setemail('');
-  //   //       setmessage('');
-  //   //     })
-  //   //   .catch((error) => {
-  //   //     console.log('FAILED...', error);
-  //   //   });
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      to_name: 'aditya kamodiya',
+      message: message,
+    };
+
+    // emailjs.send(serviceId, templateId, templateParams, publicKey)
+    //   .then(
+    //     (response) => {
+    //       console.log('SUCCESS!', response);
+    //       setname('');
+    //       setemail('');
+    //       setmessage('');
+    //     })
+    //   .catch((error) => {
+    //     console.log('FAILED...', error);
+    //   });
 
 
-  //   //  THIS IS DATA UPLOADING CONTENTS--------------
+    //  THIS IS DATA UPLOADING CONTENTS--------------
 
-  //   if (!file) {
-  //     console.log("No file selected");
-  //     return;
-  //   }
+    if (!file) {
+      console.log("No file selected");
+      return;
+    }
 
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-  //   formData.append('name', name);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('name', name);
+    formData.append('name', name);
 
-  //   try {
-  //     const response = await axios.post('http://localhost:8002/upload ', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-  //     console.log('File uploaded successfully:', response.data);
-  //   }
-  //   catch (error) {
-  //     console.error('Error uploading file:', error);
-  //   }
+    // try {
+    //   const response = await axios.post('http://localhost:8002/upload ', formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   });
+    //   console.log('File uploaded successfully:', response.data);
+    // }
+    // catch (error) {
+    //   console.error('Error uploading file:', error);
+    // }
 
-  // }
+  }
 
 
 
@@ -72,6 +78,8 @@ function Form() {
 
 
 
+  // THIS USeEFFECT IS FOR CALLING THE STATES FUNCTION---------
+  // THIS USeEFFECT IS FOR CALLING THE STATES FUNCTION---------
   // THIS USeEFFECT IS FOR CALLING THE STATES FUNCTION---------
 
 
@@ -95,7 +103,7 @@ function Form() {
     fetch("https://api.countrystatecity.in/v1/countries/IN/states", requestOptions)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setstates(response);
       })
       .catch(error => console.log('error', error));
@@ -125,41 +133,51 @@ function Form() {
     fetch(`https://api.countrystatecity.in/v1/countries/IN/states/${code}/cities`, requestOptions)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setcities(response);
       })
       .catch(error => console.log('error', error));
   }
 
-
+// THSI FUNCTION IS USED TO GET THE STATENAME-------
+  const handleStateChange = (e) => {
+    const selectedIndex = e.target.selectedIndex;
+    const code = e.target.value;
+    const name = e.target.options[selectedIndex].text;
+    // console.log(code,name)
+    setstateName(name);
+    AllCities(code);
+  };
 
   return (
     <>
       <div id="wrapper">
-        <form action="" onSubmit={''}>
+        <form action="" onSubmit={handlesubmit}>
           <input type="text" placeholder='name' value={name} onChange={(e) => { setname(e.target.value) }} />
-          <input type="number" name="" id="" placeholder='write your numbers' />
-          <input type="email" placeholder='your email' value={email} onChange={(e) => setemail(e.target.emaiL)} />
+          <input type="number" name="" id="" placeholder='write your numbers' onChange={(e) => { setnumbers(e.target.value) }}  />
+
+          <input type="email" placeholder='your email' value={email} onChange={(e) => setemail(e.target.value)} />
     
          
-          <select onChange={(e) => { AllCities(e.target.value) }} className='states' >
+          <select onChange={handleStateChange} className='states'>
             <option selected disabled>select state</option>
             {
-              states.map((result) => {
-                return <option value={result.iso2}  >{result.name}</option>
-              })
+              states.map((result, index) => (
+                <option key={index} value={result.iso2}>{result.name}</option>
+              ))
             }
           </select>
 
-          <select onChange={''} className='cities'   >
+          <select onChange={e=>{setcityName(e.target.value)}} className='cities'   >
             <option selected disabled>select city</option>
             {
               cities.map((result) => {
-                return <option value={''}  >{result.name}</option>
+                return <option value={result.name}>{result.name}</option>
               })
             }
           </select>
           <textarea rows='10' cols='20' placeholder='message' value={message} onChange={(e) => setmessage(e.target.value)}></textarea>
+
           <input className='file' type="file" onChange={(e) => { setfile(e.target.files[0]) }} />
 
           <button type='submit'> submit</button>
