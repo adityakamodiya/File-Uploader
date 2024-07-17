@@ -69,7 +69,9 @@ function Form() {
         },
       });
       console.log('File uploaded successfully:', response.data);
+      alert("submitted successfully!!!")
       window.location.reload();
+
     }
     catch (error) {
       console.error('Error uploading file:', error);
@@ -149,14 +151,14 @@ function Form() {
     <>
       <div id="wrapper">
         <form action="" onSubmit={handlesubmit}>
-        <h1>Ek Form jo Bhej De Apka Data</h1>
-          <input type="text" placeholder='name' value={name} onChange={(e) => { setname(e.target.value) }} />
-          <input type="number" name="" id="" placeholder='write your numbers' onChange={(e) => { setnumbers(e.target.value) }} />
+          <h1>Ek Form jo Bhej De Apka Data</h1>
+          <input required type="text" placeholder='name' value={name} onChange={(e) => { setname(e.target.value) }} />
+          <input required type="number" name="" id="" placeholder='write your numbers' onChange={(e) => { setnumbers(e.target.value) }} />
 
-          <input type="email" placeholder='your email' value={email} onChange={(e) => setemail(e.target.value)} />
+          <input required type="email" placeholder='your email' value={email} onChange={(e) => setemail(e.target.value)} />
 
 
-          <select onChange={handleStateChange} className='states'>
+          <select required onChange={handleStateChange} className='states'>
             <option selected disabled>select state</option>
             {
               states.map((result, index) => (
@@ -165,7 +167,7 @@ function Form() {
             }
           </select>
 
-          <select onChange={e => { setcityName(e.target.value) }} className='cities'   >
+          <select required onChange={e => { setcityName(e.target.value) }} className='cities'   >
             <option selected disabled>select city</option>
             {
               cities.map((result) => {
@@ -173,9 +175,9 @@ function Form() {
               })
             }
           </select>
-          <textarea rows='10' cols='20' placeholder='message' value={message} onChange={(e) => setmessage(e.target.value)}></textarea>
+          <textarea required rows='10' cols='20' placeholder='message' value={message} onChange={(e) => setmessage(e.target.value)}></textarea>
 
-          <input className='file' type="file" onChange={(e) => { setfile(e.target.files[0]) }} />
+          <input required className='file' type="file" onChange={(e) => { setfile(e.target.files[0]) }} />
 
           <button type='submit'> submit</button>
 
