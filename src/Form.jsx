@@ -63,7 +63,7 @@ function Form() {
     // formData.append('Message', cityName);
 
     try {
-      const response = await axios.post('http://localhost:8002/upload ', formData, {
+      const response = await axios.post('https://file-uploader-back-d5gt.onrender.com/upload ', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
