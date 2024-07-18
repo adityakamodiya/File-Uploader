@@ -12,9 +12,6 @@ function Form() {
   const [cityName, setcityName] = useState('')
   const [message, setmessage] = useState('')
   const [file, setfile] = useState('');
-  const[userNo,setuserNo]= useState('')
-  const[userstate,setuserstate]= useState('')
-  const[userscity,setusercity]= useState('')
   const [states, setstates] = useState([])
   const [cities, setcities] = useState([])
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,9 +38,9 @@ function Form() {
       from_email: email,
       to_name: 'aditya kamodiya',
       message: message,
-      // Uploader_State:userstate,
-      // Uploader_City:userscity,
-      // Uploader_Mo_no:userNo,
+      Uploader_State:stateName,
+      Uploader_City:cityName,
+      Uploader_Mo_no:numbers,
     };
 
     emailjs.send(serviceId, templateId, templateParams, publicKey)
@@ -76,7 +73,7 @@ function Form() {
     formData.append('City', cityName);
     formData.append('file', file);
     // formData.append('Message', cityName);
-    // https://file-uploader-back-d5gt.onrender.com
+    
     try {
       const response = await axios.post('https://file-uploader-back-d5gt.onrender.com/upload ', formData, {
         headers: {
@@ -84,9 +81,7 @@ function Form() {
         },
       });
       console.log('File uploaded successfully:', response.data);
-      setuserNo(response.data.Number);
-      setusercity(response.data.City);
-      setuserstate(response.data.State);
+     
       alert("submitted successfully!!!")
       window.location.reload();
 
