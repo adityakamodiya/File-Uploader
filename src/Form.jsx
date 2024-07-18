@@ -12,38 +12,24 @@ function Form() {
   const [cityName, setcityName] = useState('')
   const [message, setmessage] = useState('')
   const [file, setfile] = useState('');
+  const[userNo,setuserNo]= useState('')
+  const[userstate,setuserstate]= useState('')
+  const[userscity,setusercity]= useState('')
   const [states, setstates] = useState([])
   const [cities, setcities] = useState([])
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
 
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    console.log(name, numbers, email, stateName, cityName, message);
+    let btn = document.querySelector('.submitBtn')
+    console.log(btn)
+    btn.style.cursor = 'none'
+        btn.style.backgroundColor = 'white'
+    btn.style.color = 'black'
+    btn.disabled  = true;
 
-    const serviceId = "service_1lxhoab";
-    const templateId = "template_b9xwplr"
-    const publicKey = "477DGgg4A_-dG5iJF"
-
-    const templateParams = {
-      from_name: name,
-      from_email: email,
-      to_name: 'aditya kamodiya',
-      message: message,
-    };
-
-    // emailjs.send(serviceId, templateId, templateParams, publicKey)
-    //   .then(
-    //     (response) => {
-    //       console.log('SUCCESS!', response);
-    //       // setname('');
-    //       // setemail('');
-    //       // setmessage('');
-    //       window.location.reload();
-    //     })
-    //   .catch((error) => {
-    //     console.log('FAILED...', error);
-    //   });
 
 
     //  THIS IS DATA UPLOADING CONTENTS--------------
@@ -61,7 +47,7 @@ function Form() {
     formData.append('City', cityName);
     formData.append('file', file);
     // formData.append('Message', cityName);
-
+    https://file-uploader-back-d5gt.onrender.com
     try {
       const response = await axios.post('https://file-uploader-back-d5gt.onrender.com/upload ', formData, {
         headers: {
@@ -69,6 +55,9 @@ function Form() {
         },
       });
       console.log('File uploaded successfully:', response.data);
+      setuserNo(response.data.Number);
+      setusercity(response.data.City);
+      setuserstate(response.data.State);
       alert("submitted successfully!!!")
       window.location.reload();
 
@@ -76,6 +65,39 @@ function Form() {
     catch (error) {
       console.error('Error uploading file:', error);
     }
+
+
+//  THIS IS EMAIL CONTENT---------
+
+    const serviceId = "service_1lxhoab";
+    const templateId = "template_b9xwplr"
+    const publicKey = "477DGgg4A_-dG5iJF"
+
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      to_name: 'aditya kamodiya',
+      message: message,
+      Uploader_State:userstate,
+      Uploader_City:userscity,
+      Uploader_Mo_no:userNo,
+    };
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then(
+        (response) => {
+          console.log('SUCCESS!', response);
+          // setname('');
+          // setemail('');
+          // setmessage('');
+          window.location.reload();
+        })
+      .catch((error) => {
+        console.log('FAILED...', error);
+      });
+
+
+
 
   }
 
@@ -146,20 +168,21 @@ function Form() {
     setstateName(name);
     AllCities(code);
   };
+  
 
   return (
     <>
       <div id="wrapper">
         <form action="" onSubmit={handlesubmit}>
-          <h1>Ek Form jo Bhej De Apka Data</h1>
-          <input required type="text" placeholder='name' value={name} onChange={(e) => { setname(e.target.value) }} />
-          <input required type="number" name="" id="" placeholder='write your numbers' onChange={(e) => { setnumbers(e.target.value) }} />
+          <h1><span>Ek Form jo Bhej</span> De Apka Data</h1>
+          <input required type="text" placeholder='Name' value={name} onChange={(e) => { setname(e.target.value) }} />
+          <input required type="number" name="" id="" placeholder='Phone numbers' onChange={(e) => { setnumbers(e.target.value) }} />
 
-          <input required type="email" placeholder='your email' value={email} onChange={(e) => setemail(e.target.value)} />
+           <input required type="email" placeholder='Email' value={email} onChange={(e) => setemail(e.target.value)} />
 
 
-          <select required onChange={handleStateChange} className='states'>
-            <option selected disabled>select state</option>
+           <select required onChange={handleStateChange} className='states'>
+            <option selected disabled>Select State</option>
             {
               states.map((result, index) => (
                 <option key={index} value={result.iso2}>{result.name}</option>
@@ -168,7 +191,7 @@ function Form() {
           </select>
 
           <select required onChange={e => { setcityName(e.target.value) }} className='cities'   >
-            <option selected disabled>select city</option>
+            <option selected disabled>Select City</option>
             {
               cities.map((result) => {
                 return <option value={result.name}>{result.name}</option>
@@ -177,9 +200,9 @@ function Form() {
           </select>
           <textarea required rows='10' cols='20' placeholder='message' value={message} onChange={(e) => setmessage(e.target.value)}></textarea>
 
-          <input required className='file' type="file" onChange={(e) => { setfile(e.target.files[0]) }} />
+          <input required className='file' type="file" onChange={(e) => { setfile(e.target.files[0]) }} /> 
 
-          <button type='submit'> submit</button>
+          <button type='submit' className='submitBtn'> Submit</button>
 
         </form>
       </div>
