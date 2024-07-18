@@ -30,6 +30,35 @@ function Form() {
     btn.style.color = 'black'
     btn.disabled  = true;
 
+    //  THIS IS EMAIL CONTENT---------
+
+    const serviceId = "service_1lxhoab";
+    const templateId = "template_b9xwplr"
+    const publicKey = "477DGgg4A_-dG5iJF"
+
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      to_name: 'aditya kamodiya',
+      message: message,
+      // Uploader_State:userstate,
+      // Uploader_City:userscity,
+      // Uploader_Mo_no:userNo,
+    };
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then(
+        (response) => {
+          console.log('SUCCESS!', response);
+          // setname('');
+          // setemail('');
+          // setmessage('');
+          window.location.reload();
+        })
+      .catch((error) => {
+        console.log('FAILED...', error);
+      });
+
 
 
     //  THIS IS DATA UPLOADING CONTENTS--------------
@@ -67,34 +96,6 @@ function Form() {
     }
 
 
-//  THIS IS EMAIL CONTENT---------
-
-    const serviceId = "service_1lxhoab";
-    const templateId = "template_b9xwplr"
-    const publicKey = "477DGgg4A_-dG5iJF"
-
-    const templateParams = {
-      from_name: name,
-      from_email: email,
-      to_name: 'aditya kamodiya',
-      message: message,
-      Uploader_State:userstate,
-      Uploader_City:userscity,
-      Uploader_Mo_no:userNo,
-    };
-
-    emailjs.send(serviceId, templateId, templateParams, publicKey)
-      .then(
-        (response) => {
-          console.log('SUCCESS!', response);
-          // setname('');
-          // setemail('');
-          // setmessage('');
-          window.location.reload();
-        })
-      .catch((error) => {
-        console.log('FAILED...', error);
-      });
 
 
 
