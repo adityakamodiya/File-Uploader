@@ -177,7 +177,7 @@ function Form() {
     // console.log(format)
 
     if (format == 'pptx' || format == 'ppt' || format == 'docx') {
-      alert('change your file fromat( ex : pdf etc. )')
+      alert('change your file fromat( ex : pdf etc. ).If your submit the form with this format your data will no have been recieved.')
        setfile('') ;  
       setFileformat(false);
     }
