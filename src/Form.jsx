@@ -192,6 +192,17 @@ function Form() {
 
   }
 
+  function setemailformat(emailformat){
+     let regex = /^[a-z][a-z0-9]{5,}[@][a-z]+[.][a-z]+$/;
+    if(regex.test(emailformat))
+    {
+      setemail(emailformat);
+    }
+    else{
+      alert("please enter correct email !!");
+    }
+  }
+
 
   return (
     <>
@@ -203,7 +214,7 @@ function Form() {
 
           <input required type="number" name="" id="" placeholder='Phone numbers' onChange={(e) => { setnumbers(e.target.value) }} />
 
-          <input required type="email" placeholder='Email' value={email} onChange={(e) => setemail(e.target.value)} />
+          <input required type="email" placeholder='Email' value={email} onChange={(e) => {setemailformat(e.target.value)}} />
 
 
           <select required onChange={handleStateChange} className='states'>
