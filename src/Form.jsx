@@ -14,7 +14,6 @@ function Form() {
   const [file, setfile] = useState('');
   const [states, setstates] = useState([])
   const [cities, setcities] = useState([])
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
 
 
@@ -23,9 +22,9 @@ function Form() {
     let btn = document.querySelector('.submitBtn')
     console.log(btn)
     btn.style.cursor = 'none'
-        btn.style.backgroundColor = 'white'
+    btn.style.backgroundColor = 'white'
     btn.style.color = 'black'
-    btn.disabled  = true;
+    btn.disabled = true;
 
     //  THIS IS EMAIL CONTENT---------
 
@@ -38,23 +37,26 @@ function Form() {
       from_email: email,
       to_name: 'aditya kamodiya',
       message: message,
-      Uploader_State:stateName,
-      Uploader_City:cityName,
-      Uploader_Mo_no:numbers,
+      Uploader_State: stateName,
+      Uploader_City: cityName,
+      Uploader_Mo_no: numbers,
     };
 
-    emailjs.send(serviceId, templateId, templateParams, publicKey)
-      .then(
-        (response) => {
-          console.log('SUCCESS!', response);
-          // setname('');
-          // setemail('');
-          // setmessage('');
-          // window.location.reload();
-        })
-      .catch((error) => {
-        console.log('FAILED...', error);
-      });
+
+    // emailjs.send(serviceId, templateId, templateParams, publicKey)
+    //   .then(
+    //     (response) => {
+    //       console.log('SUCCESS!', response);
+    //       // setname('');
+    //       // setemail('');
+    //       // setmessage('');
+    //       // window.location.reload();
+    //     })
+    //   .catch((error) => {
+    //     console.log('FAILED...', error);
+    //   });
+
+   
 
 
 
@@ -73,7 +75,7 @@ function Form() {
     formData.append('City', cityName);
     formData.append('file', file);
     // formData.append('Message', cityName);
-    
+
     try {
       const response = await axios.post('https://file-uploader-back-d5gt.onrender.com/upload ', formData, {
         headers: {
@@ -81,7 +83,7 @@ function Form() {
         },
       });
       console.log('File uploaded successfully:', response.data);
-     
+
       alert("submitted successfully!!!")
       window.location.reload();
 
@@ -89,6 +91,7 @@ function Form() {
     catch (error) {
       console.error('Error uploading file:', error);
     }
+
 
 
 
@@ -164,20 +167,40 @@ function Form() {
     setstateName(name);
     AllCities(code);
   };
-  
+
+  // THIS FUNCTION IS USED TO CHECK THE FILE EXTENSION LIKE .PDF, .DOCX, .JGG ETC -----. 
+  function CheckFormat(e) {
+    let format = e.target.files[0].name.slice(e.target.files[0].name.lastIndexOf('.') + 1, e.
+      target.files[0].name.length);
+
+    // console.log(format)
+
+    if (format == 'pptx' || format == 'docx') {
+      alert('change your file fromat( ex : pdf etc. )')
+    }
+    else
+      {
+        setfile(e.target.files[0]) 
+        // console.log(e.target.files[0]);
+      }
+
+  }
+
 
   return (
     <>
       <div id="wrapper">
         <form action="" onSubmit={handlesubmit}>
           <h1><span>Ek Form jo Bhej</span> De Apka Data</h1>
+
           <input required type="text" placeholder='Name' value={name} onChange={(e) => { setname(e.target.value) }} />
+
           <input required type="number" name="" id="" placeholder='Phone numbers' onChange={(e) => { setnumbers(e.target.value) }} />
 
-           <input required type="email" placeholder='Email' value={email} onChange={(e) => setemail(e.target.value)} />
+          <input required type="email" placeholder='Email' value={email} onChange={(e) => setemail(e.target.value)} />
 
 
-           <select required onChange={handleStateChange} className='states'>
+          <select required onChange={handleStateChange} className='states'>
             <option selected disabled>Select State</option>
             {
               states.map((result, index) => (
@@ -194,9 +217,10 @@ function Form() {
               })
             }
           </select>
+
           <textarea required rows='10' cols='20' placeholder='message' value={message} onChange={(e) => setmessage(e.target.value)}></textarea>
 
-          <input required className='file' type="file" onChange={(e) => { setfile(e.target.files[0]) }} /> 
+          <input required className='file' type="file" onChange={(e) => { CheckFormat(e) }} />
 
           <button type='submit' className='submitBtn'> Submit</button>
 
@@ -209,3 +233,5 @@ function Form() {
 }
 
 export default Form
+
+
