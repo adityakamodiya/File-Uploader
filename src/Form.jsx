@@ -177,7 +177,7 @@ function Form() {
     // console.log(format)
 
     if (format == 'pptx' || format == 'ppt' || format == 'docx') {
-      alert('change your file fromat( ex : pdf etc. ).If your submit the form with this format your data will no have been recieved.')
+      alert('change your file fromat( ex : pdf etc. ).If you submit the file with this format your data will not be recieved.')
        setfile('') ;  
       setFileformat(false);
     }
@@ -185,6 +185,7 @@ function Form() {
       {
         setfile(e.target.files[0]) 
          setFileformat(true)
+        alert("Please wait for success of submission")
         // console.log(e.target.files[0]);
       }
 
