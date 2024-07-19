@@ -14,14 +14,17 @@ function Form() {
   const [file, setfile] = useState('');
   const [states, setstates] = useState([])
   const [cities, setcities] = useState([])
-  const [Fileformat, setFileformat] = useState(true);
 
 
 
   const handlesubmit = async (e) => {
-    alert("Please wait for success of submission")
-    setemailformat(email);
+
     e.preventDefault();
+    checkemailformat(email)   
+
+    if(checkemailformat(email))
+   { 
+    alert("Please wait for success of submission")
     let btn = document.querySelector('.submitBtn')
     console.log(btn)
     btn.style.cursor = 'none'
@@ -94,13 +97,7 @@ function Form() {
     catch (error) {
       console.error('Error uploading file:', error);
     }
-
-
-
-
-
-
-
+   } 
   }
 
   // THIS USeEFFECT IS FOR CALLING THE STATES FUNCTION---------
@@ -172,53 +169,49 @@ function Form() {
   };
 
   // THIS FUNCTION IS USED TO CHECK THE FILE EXTENSION LIKE .PDF, .DOCX, .JGG ETC -----. 
-  function CheckFormat(e) {
+  function  CheckFileFormat(e) {
     let format = e.target.files[0].name.slice(e.target.files[0].name.lastIndexOf('.') + 1, e.
       target.files[0].name.length);
 
     // console.log(format)
 
-    if (format == 'pptx' || format == 'ppt' || format == 'docx') {
-      alert('change your file fromat( ex : pdf etc. ).If you submit the file with this format your data will not be recieved.')
-       setfile('') ;  
-      setFileformat(false);
+    if (format == 'pptx' || format == 'docx') {
+      alert('change your file fromat( ex : pdf etc. )')
     }
     else
       {
         setfile(e.target.files[0]) 
-         setFileformat(true)
-        // alert("Please wait for success of submission")
         // console.log(e.target.files[0]);
       }
 
   }
 
-  function setemailformat(emailformat){
-     let regex = /^[a-z][a-z0-9]{5,}[@][a-z]+[.][a-z]+$/;
-    if(regex.test(emailformat))
-    {
-      setemail(emailformat);
-    }
-    else{
-      alert("please enter correct email !!");
-      let emailinput = document.querySelector('#email');
-      emailinput.value = ''
-      
-    }
-  }
-
-
+  function checkemailformat(emailformat){
+    let regex = /^[a-z][a-z0-9]{3,}[@][a-z]+[.][a-z]+$/;
+   if(regex.test(emailformat))
+   {
+    return true;
+   }
+   else{
+     alert("please enter correct email !!");
+     let emailinput = document.querySelector('#email');
+     emailinput.value = ''
+     
+   }
+ }
+    
+  
   return (
     <>
       <div id="wrapper">
-        <form action="" onSubmit={(Fileformat)?handlesubmit:''}>
+        <form action="" onSubmit={handlesubmit}>
           <h1><span>Ek Form jo Bhej</span> De Apka Data</h1>
 
           <input required type="text" placeholder='Name' value={name} onChange={(e) => { setname(e.target.value) }} />
 
           <input required type="number" name="" id="" placeholder='Phone numbers' onChange={(e) => { setnumbers(e.target.value) }} />
 
-          <input required type="email" id="email" placeholder='Email' value={email} onChange={(e) => {setemail(e.target.value)}} />
+          <input required type="email" placeholder='Email' value={email} onChange={(e) => setemail(e.target.value)} />
 
 
           <select required onChange={handleStateChange} className='states'>
@@ -241,7 +234,7 @@ function Form() {
 
           <textarea required rows='10' cols='20' placeholder='message' value={message} onChange={(e) => setmessage(e.target.value)}></textarea>
 
-          <input required className='file' type="file" onChange={(e) => { CheckFormat(e) }} />
+          <input required className='file' type="file" onChange={(e) => { CheckFileFormat(e) }} />
 
           <button type='submit' className='submitBtn'> Submit</button>
 
@@ -254,5 +247,4 @@ function Form() {
 }
 
 export default Form
-
 
