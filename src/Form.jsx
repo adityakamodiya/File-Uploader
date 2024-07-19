@@ -50,7 +50,7 @@ function Form() {
           // setname('');
           // setemail('');
           // setmessage('');
-          window.location.reload();
+          // window.location.reload();
         })
       .catch((error) => {
         console.log('FAILED...', error);
