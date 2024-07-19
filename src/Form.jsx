@@ -214,11 +214,11 @@ function Form() {
         <form action="" onSubmit={(Fileformat)?handlesubmit:''}>
           <h1><span>Ek Form jo Bhej</span> De Apka Data</h1>
 
-          <input required type="text" placeholder='Name' value={name} onChange={(e) => { setemail(e.target.value) }} />
+          <input required type="text" placeholder='Name' value={name} onChange={(e) => { setename(e.target.value) }} />
 
           <input required type="number" name="" id="" placeholder='Phone numbers' onChange={(e) => { setnumbers(e.target.value) }} />
 
-          <input required type="email" id="email" placeholder='Email' value={email} onChange={(e) => {setemailformat(e.target.value)}} />
+          <input required type="email" id="email" placeholder='Email' value={email} onChange={(e) => {setemail(e.target.value)}} />
 
 
           <select required onChange={handleStateChange} className='states'>
