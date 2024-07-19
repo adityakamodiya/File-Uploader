@@ -14,6 +14,7 @@ function Form() {
   const [file, setfile] = useState('');
   const [states, setstates] = useState([])
   const [cities, setcities] = useState([])
+  const [Fileformat, setFileformat] = useState(true);
 
 
 
@@ -175,13 +176,15 @@ function Form() {
 
     // console.log(format)
 
-    if (format == 'pptx' || format == 'docx') {
+    if (format == 'pptx' || format == 'ppt' || format == 'docx') {
       alert('change your file fromat( ex : pdf etc. )')
-       setfile('') ;
+       setfile('') ;  
+      setFileformat(false);
     }
     else
       {
         setfile(e.target.files[0]) 
+         setFileformat(true)
         // console.log(e.target.files[0]);
       }
 
@@ -191,7 +194,7 @@ function Form() {
   return (
     <>
       <div id="wrapper">
-        <form action="" onSubmit={handlesubmit}>
+        <form action="" onSubmit={(Fileformat)?handlesubmit:alert("change your file fromat( ex : pdf etc. )")}>
           <h1><span>Ek Form jo Bhej</span> De Apka Data</h1>
 
           <input required type="text" placeholder='Name' value={name} onChange={(e) => { setname(e.target.value) }} />
