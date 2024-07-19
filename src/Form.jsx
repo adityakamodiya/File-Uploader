@@ -194,7 +194,7 @@ function Form() {
   return (
     <>
       <div id="wrapper">
-        <form action="" onSubmit={(Fileformat)?handlesubmit:alert("change your file fromat( ex : pdf etc. )")}>
+        <form action="" onSubmit={(Fileformat)?handlesubmit}>
           <h1><span>Ek Form jo Bhej</span> De Apka Data</h1>
 
           <input required type="text" placeholder='Name' value={name} onChange={(e) => { setname(e.target.value) }} />
