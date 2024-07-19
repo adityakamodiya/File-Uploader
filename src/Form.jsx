@@ -177,6 +177,7 @@ function Form() {
 
     if (format == 'pptx' || format == 'docx') {
       alert('change your file fromat( ex : pdf etc. )')
+       setfile('') ;
     }
     else
       {
