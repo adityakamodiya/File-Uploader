@@ -175,7 +175,7 @@ function Form() {
 
     // console.log(format)
 
-    if (format == 'pptx' || format == 'docx') {
+    if (format == 'pptx' || format == 'ppt'|| format == 'docx') {
       alert('change your file fromat( ex : pdf etc. )')
     }
     else
