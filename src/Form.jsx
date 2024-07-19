@@ -19,6 +19,7 @@ function Form() {
 
 
   const handlesubmit = async (e) => {
+    alert("Please wait for success of submission")
     e.preventDefault();
     let btn = document.querySelector('.submitBtn')
     console.log(btn)
@@ -185,7 +186,7 @@ function Form() {
       {
         setfile(e.target.files[0]) 
          setFileformat(true)
-        alert("Please wait for success of submission")
+        // alert("Please wait for success of submission")
         // console.log(e.target.files[0]);
       }
 
