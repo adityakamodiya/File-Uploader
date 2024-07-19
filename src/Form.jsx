@@ -214,7 +214,7 @@ function Form() {
         <form action="" onSubmit={(Fileformat)?handlesubmit:''}>
           <h1><span>Ek Form jo Bhej</span> De Apka Data</h1>
 
-          <input required type="text" placeholder='Name' value={name} onChange={(e) => { setename(e.target.value) }} />
+          <input required type="text" placeholder='Name' value={name} onChange={(e) => { setname(e.target.value) }} />
 
           <input required type="number" name="" id="" placeholder='Phone numbers' onChange={(e) => { setnumbers(e.target.value) }} />
 
