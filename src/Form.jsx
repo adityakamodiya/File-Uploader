@@ -236,7 +236,11 @@ function Form() {
 
           <input required className='file' type="file" onChange={(e) => { CheckFileFormat(e) }} />
 
-          <button type='submit' className='submitBtn'> Submit</button>
+          <button type='submit' className='submitBtn' onClick={e=>{setInterval(() => {
+            e.target.disabled = 'true',
+            e.target.style.backgroundColor ='wheat'
+            
+          }, 1000);}}> Submit</button>
 
         </form>
       </div>

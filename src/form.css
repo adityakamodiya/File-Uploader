@@ -68,3 +68,49 @@ select {
     border: none;
     
 }
+button:hover, input:hover,textarea:hover,select:hover ,option:hover{
+    background-color: black;
+    color: white;
+    transition: .5s all ease-out;
+}
+
+
+@media screen and (max-width:400px) {
+    h1{
+        font-size: 20px;
+    }
+    form {
+
+        height: auto;
+        width: 95%;
+        padding: 1% 0;
+        
+    }
+    form input {
+        font: black;
+        margin: 3% 0%;
+        padding: 2% 1%;
+        width: 90%;
+        border: 0;
+        box-shadow: 1px 1px 1px 1px ;
+        height: 7%;
+
+    }
+    button{
+    padding: 2% 5%;
+        font-size: 11px;
+    }
+select{
+    width: 60%;
+    padding: 1% 1%;
+}
+    form textarea{
+        padding: 1% 1%;
+        width: 50%;
+        height: 150px;
+        overflow: scroll;
+        line-height: 25px;
+        text-align: justify;
+    
+    }
+}
